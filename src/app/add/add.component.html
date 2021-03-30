@@ -1,0 +1,36 @@
+<div class="row py-4">
+  <h3>Add New Table Reservation ({{todayDate | date}})</h3>
+</div>
+
+<form>
+  <div [formGroup]="addReservationFrmGrp" class="row py-4">
+    <div class="col-md-12 form-group">
+        <label for="tableLocation">Table Location</label>
+        <select (change)="selectTable(f.tableLocation.value)" class="form-control" id="tableLocation" formControlName="tableLocation">
+          <option value="">Select table location</option>
+          <option [ngValue]="item" *ngFor="let item of tableArr">{{item.tableLocation | titlecase}}</option>
+          </select>
+        <ng-container *ngIf="submitted && f.tableLocation.errors">
+          <div class="invalid" *ngIf="f.tableLocation.errors.required">
+            Required
+          </div>
+        </ng-container>
+    </div>
+    <div class="col-md-12 form-group">
+      <label for="slot">Select Time Slot</label>
+      <select class="form-control" id="slot" placeholder="Enter last name" formControlName="slot">
+        <option value="">Select time slot</option>
+        <option [disabled]="item.disabled" [ngValue]="item" *ngFor="let item of timeSlotArr">{{item.time}}</option>
+        </select>
+      <ng-container *ngIf="submitted && f.slot.errors">
+        <div class="invalid" *ngIf="f.slot.errors.required">
+          Required
+        </div>
+      </ng-container>
+  </div>
+  <div class="col-md-12">
+    <button class="btn btn-primary" (click)="submit()">Save</button> &nbsp;
+    <button class="btn btn-danger" routerLink="../">Cancel</button>
+  </div>
+  </div>
+</form>
